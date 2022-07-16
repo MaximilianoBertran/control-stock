@@ -1,0 +1,29 @@
+// Fonts
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '../shared/fonts/nunito';
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Vendors
+@import 'flatpickr';
+@import 'select2';
+@import "~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css";
+
+// Custom
+@import '../shared/navbar';
+@import '../shared/table';
+@import '../shared/ul2';
+@import '../shared/bootstrap4-select2';
+@import '../shared/square';
+@import '../shared/error';
+@import '../shared/collapse-toggle';
+@import '../shared/debug';
+
+.flatpickr-target:read-only {
+    background-color: white;
+}

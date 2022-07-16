@@ -1,0 +1,137 @@
+// Dropdown submenus for navbar
+.navbar .dropdown-submenu {
+    position: relative;
+}
+
+.navbar .dropdown-menu {
+    margin-top: .5rem;
+}
+
+.navbar .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: - 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.navbar .dropdown-submenu:not(:last-child) {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.navbar-expand {
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        $next: breakpoint-next($breakpoint, $grid-breakpoints);
+        $infix: breakpoint-infix($next, $grid-breakpoints);
+
+        &#{$infix} {
+            @include media-breakpoint-down($breakpoint) {
+                %container-navbar-expand-#{$breakpoint} {
+                    padding-right: 0;
+                    padding-left: 0;
+                }
+
+                > .container,
+                > .container-fluid {
+                    @extend %container-navbar-expand-#{$breakpoint};
+                }
+
+                .dropdown-submenu .dropdown-menu {
+                    top: 0;
+                    left: 100%;
+                    margin-top: 0.5rem;
+                    margin-left: 0.5rem;
+                    margin-right: 0.5rem;
+                }
+
+                &.navbar-dark .dropdown-menu,
+                &.navbar-dark .dropdown-divider,
+                .dropdown-submenu:not(:last-child) {
+                    background-color: transparent !important;
+                    border-color: rgba(255, 255, 255, 0.5);
+                }
+
+                &.navbar-dark .dropdown-item {
+                    background-color: transparent !important;
+                    color: rgba(255, 255, 255, 0.5);
+                }
+
+                &.navbar-dark .dropdown-item:hover {
+                    color: rgba(255, 255, 255, 0.75);
+                }
+
+                &.navbar-dark .dropdown-item:focus {
+                    color: rgba(255, 255, 255, 1);
+                }
+
+                @each $size, $container-max-width in $container-max-widths {
+                    > .container#{breakpoint-infix($size, $container-max-widths)} {
+                        @extend %container-navbar-expand-#{$breakpoint};
+                    }
+                }
+            }
+
+            @include media-breakpoint-up($next) {
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+
+                .navbar-nav {
+                    flex-direction: row;
+
+                    .dropdown-menu {
+                        position: absolute;
+                    }
+
+                    .dropdown-submenu a::after {
+                        transform: rotate(-90deg);
+                        position: absolute;
+                        right: 6px;
+                        top: .8em;
+                    }
+
+                    .dropdown-submenu .dropdown-menu {
+                        top: -1px;
+                        left: 100%;
+                        margin-top: - 0.5rem;
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                    .nav-link {
+                        padding-right: $navbar-nav-link-padding-x;
+                        padding-left: $navbar-nav-link-padding-x;
+                    }
+                }
+
+                // For nesting containers, have to redeclare for alignment purposes
+                %container-nesting-#{$breakpoint} {
+                    flex-wrap: nowrap;
+                }
+
+                > .container,
+                > .container-fluid {
+                    @extend %container-nesting-#{$breakpoint};
+                }
+
+                @each $size, $container-max-width in $container-max-widths {
+                    > .container#{breakpoint-infix($size, $container-max-widths)} {
+                        @extend %container-nesting-#{$breakpoint};
+                    }
+                }
+
+                .navbar-collapse {
+                    display: flex !important; // stylelint-disable-line declaration-no-important
+
+                    // Changes flex-bases to auto because of an IE10 bug
+                    flex-basis: auto;
+                }
+
+                .navbar-toggler {
+                    display: none;
+                }
+            }
+        }
+    }
+}

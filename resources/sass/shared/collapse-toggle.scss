@@ -1,0 +1,15 @@
+.btn-collapse .hide {
+    display: inherit;
+}
+
+.btn-collapse .show {
+    display: none;
+}
+
+.btn-collapse.collapsed .hide {
+    display: none;
+}
+
+.btn-collapse.collapsed .show {
+    display: inherit;
+}
