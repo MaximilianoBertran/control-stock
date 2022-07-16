@@ -59,17 +59,4 @@ class Role extends Model {
         return $this->permissions->contains('id', $permission_id);
     }
 
-    private static function eliminarTiposRolEspeciales($tiposRoles){
-
-    //hago el filtrado a mano en vez de usar filter porque me rompe sino (puede ser por la version de php quizas) 
-        $filtrados = array();
-
-        foreach($tiposRoles as $tipoRol){
-                if($tipoRol->id != TipoRol::DESCUENTO && $tipoRol->id != TipoRol::MODULO_HTML){
-                        $filtrados[] = $tipoRol->id;
-                }
-        }
-
-        return $filtrados;
-    }
 }

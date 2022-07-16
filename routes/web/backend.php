@@ -78,6 +78,31 @@ Route::middleware('auth:backend')->group(function () {
             Route::get('logs/{log}', 'DiagnosisController@log')->name('log');
         });
     });
+
+    // Products
+    Route::prefix('product')->name('product.')->group(function () {
+        Route::get('/', 'ProductsController@index')->name('index')->middleware('can:view-admins');
+        Route::delete('delete/{id}', 'ProductsController@destroy')->name('destroy')->middleware('can:view-admins');
+        Route::get('edit/{id}', 'ProductsController@edit')->name('edit')->middleware('can:view-admins');
+        Route::put('update/{id}', 'ProductsController@update')->name('update')->middleware('can:view-admins');
+        Route::get('add', 'ProductsController@create')->name('create')->middleware('can:view-admins');
+        Route::post('save', 'ProductsController@store')->name('store')->middleware('can:view-admins');
+    });
+
+    // Products
+    Route::prefix('stock')->name('stock.')->group(function () {
+        Route::get('/', 'StockController@index')->name('index');
+    });
+
+    // Orders
+    Route::prefix('order')->name('order.')->group(function () {
+        Route::get('/', 'OrdersController@index')->name('index');
+        Route::delete('delete/{id}', 'OrdersController@destroy')->name('destroy')->middleware('can:view-admins');
+        //Route::get('edit/{id}', 'OrdersController@edit')->name('edit')->middleware('can:view-admins');
+        //Route::put('update/{id}', 'OrdersController@update')->name('update')->middleware('can:view-admins');
+        Route::get('add', 'OrdersController@create')->name('create')->middleware('can:view-admins');
+        Route::post('save', 'OrdersController@store')->name('store')->middleware('can:view-admins');
+    });
 });
 
 

@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler {
      * @throws \Exception
      */
     public function render($request, Exception $exception) {
-        return redirect('/login');
+        parent::report($exception);
     }
 
     /**
@@ -79,7 +79,17 @@ class Handler extends ExceptionHandler {
      * @return string
      */
     protected function getHttpExceptionView(HttpExceptionInterface $e) {
-        return redirect('/login');
+        if (Str::is('backend/*', request()->path())) {
+            if (view()->exists("backend.errors.{$e->getStatusCode()}")) {
+                return "backend.errors.{$e->getStatusCode()}";
+            }
+            return "backend.errors.generic";
+        } else {
+            if (view()->exists("frontend.errors.{$e->getStatusCode()}")) {
+                return "frontend.errors.{$e->getStatusCode()}";
+            }
+            return "frontend.errors.generic";
+        }
     }
 
 }

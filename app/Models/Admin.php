@@ -72,6 +72,10 @@ class Admin extends Authenticatable {
         return $this->belongsToMany(Role::class);
     }
 
+    public function orders() {
+        return $this->belongsToMany(Order::class)->withTrashed();
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetAdminPassword($token));
